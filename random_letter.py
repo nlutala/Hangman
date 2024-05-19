@@ -8,5 +8,8 @@ class RandomLetter:
         self.letters = "abcdefghijklmnopqrstuvwxyz" 
 
     def generateRandomLetter(self) -> str:
+        '''
+        Returns a random letter from the letters string.
+        '''
         index = Random().randint(0, len(self.letters)-1)
         return self.letters[index]
