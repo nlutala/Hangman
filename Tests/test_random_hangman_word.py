@@ -9,7 +9,7 @@ class TestRandomHangmanWord(unittest.TestCase):
     def test_randomhangmanword_returns_one_word_when_easy(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("EASY").generateRandomWord(letter)
-        assert word.count("") == 0
+        assert word.count(" ") == 0
 
     def test_randomhangmanword_returns_word_starting_with_letter_when_easy(self):
         letter = RandomLetter().generateRandomLetter()
@@ -24,7 +24,7 @@ class TestRandomHangmanWord(unittest.TestCase):
     def test_randomhangmanword_returns_one_word_when_medium(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
-        assert word.count("") == 0
+        assert word.count(" ") == 0
 
     def test_randomhangmanword_returns_word_starting_with_letter_when_medium(self):
         letter = RandomLetter().generateRandomLetter()
@@ -39,7 +39,7 @@ class TestRandomHangmanWord(unittest.TestCase):
     def test_randomhangmanword_returns_one_word_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
-        assert word.count("") == 0
+        assert word.count(" ") == 0
 
     def test_randomhangmanword_returns_word_starting_with_letter_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
