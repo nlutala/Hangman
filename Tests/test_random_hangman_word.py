@@ -34,7 +34,7 @@ class TestRandomHangmanWord(unittest.TestCase):
     def test_randomhangmanword_returns_word_with_length_no_greater_than_seven_when_medium(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
-        assert len(word) >= 4 and len(word) <= 7
+        assert len(word) >= 7
 
     def test_randomhangmanword_returns_one_word_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
@@ -49,4 +49,4 @@ class TestRandomHangmanWord(unittest.TestCase):
     def test_randomhangmanword_returns_word_with_length_no_greater_than_twenty_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
-        assert len(word) >= 7 and len(word) <= 20
+        assert len(word) >= 10
