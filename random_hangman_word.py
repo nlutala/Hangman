@@ -13,11 +13,11 @@ class RandomHangmanWord:
         self.word_min_length = 0
         
         if level == "EASY":
-            self.word_min_length = 4
+            self.word_min_length = 3
         elif level == "MEDIUM":
-            self.word_min_length = 7
+            self.word_min_length = 5
         else:
-            self.word_min_length = 10
+            self.word_min_length = 7
 
     def generateRandomWord(self, random_letter) -> str:
         '''
