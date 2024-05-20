@@ -5,6 +5,7 @@ I used the following links to help with creating the screen:
 - https://api.arcade.academy/en/latest/examples/gui_widgets.html#gui-widgets
 - https://api.arcade.academy/en/latest/examples/gui_ok_messagebox.html#gui-ok-messagebox
 '''
+# TODO #1: Refactor the method names to make this file easier to read and understand
 
 import arcade
 import arcade.gui
@@ -51,16 +52,17 @@ class HangmanGUI(arcade.Window):
         # Handle the clicks for the play game and quit buttons
         @ui_flatbutton_instructions.event("on_click")
         def on_click_flatbutton_instructions(event):
-            print("UIFlatButton pressed", event)
             self.on_click_open(event)
 
         @ui_flatbutton_play.event("on_click")
+        # TODO #2: Implement a screen where the user can select the level
+        # of difficulty
+        # TODO #3: Implement the Hangman game
         def on_click_flatbutton_play(event):
-            print("UIFlatButton pressed", event)
+            print("Play Game button was pressed", event)
         
         @ui_flatbutton_quit.event("on_click")
         def on_click_flatbutton_quit(event):
-            print("UIFlatButton pressed", event)
             arcade.exit()
 
         # Create a widget to hold the v_box widget, that will center the buttons
