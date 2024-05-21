@@ -49,6 +49,10 @@ class Hangman:
         else:
             self.incorrect_letters.add(letter.lower())
 
+        # Just because hard words can have hyphens in them
+        if '-' in word_to_guess:
+            self.correct_letters.add('-')
+
         # Split the word into a list of its letters
         word_to_guess = list(word_to_guess)
 
