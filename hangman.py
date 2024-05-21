@@ -23,7 +23,7 @@ class Hangman:
         '''
         return " ".join(list(self.incorrect_letters))
     
-    def _getIndexesOfALetterInAWord(self, word, letter) -> list:
+    def _getIndexesOfALetterInAWord(self, word: str, letter: str) -> list:
         '''
         Private function that returns a list of the indices
         of where a letter appears in a word
@@ -35,7 +35,7 @@ class Hangman:
         indices = [i for i in range(0, len(word)) if word[i].lower() == letter.lower()]
         return indices
 
-    def revealCorrectLetters(self, word_to_guess, letter) -> str:
+    def revealCorrectLetters(self, word_to_guess: str, letter: str) -> str:
         '''
         Returns a string revealing the occurences of a letter
         in a word.
@@ -65,4 +65,3 @@ class Hangman:
                 revealed_pieces[i] = letter
 
         return "".join(revealed_pieces)
-
