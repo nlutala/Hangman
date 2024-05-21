@@ -10,12 +10,15 @@ class RandomHangmanWord:
         with a level (either "EASY", "MEDIUM" or "HARD")
         '''
         self.level = level
-        self.word_min_length = 0
+        self.word_min_length = None
+        self.regex = None
         
         if level == "EASY":
             self.word_min_length = 3
+            self.regex = r'^[^-]*$'
         elif level == "MEDIUM":
             self.word_min_length = 5
+            self.regex = r'^[^-]*$'
         else:
             self.word_min_length = 7
 
@@ -25,6 +28,6 @@ class RandomHangmanWord:
         '''
         return RandomWord().word(
             starts_with=random_letter,
-            word_min_length=self.word_min_length
+            word_min_length=self.word_min_length,
+            regex=self.regex
         )
-    
