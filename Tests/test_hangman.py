@@ -41,7 +41,7 @@ class TestHangman(unittest.TestCase):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
 
-        # I chose an arbitrary letter (in this case the letter z)
+        # I chose an arbitrary letter (in this case the letter x)
         string = Hangman().revealCorrectLetters(word, 'x')
         
         if 'x' not in string:
@@ -71,7 +71,7 @@ class TestHangman(unittest.TestCase):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
 
-        # I chose an arbitrary letter (in this case the letter z)
+        # I chose an arbitrary letter (in this case the letter q)
         string = Hangman().revealCorrectLetters(word, 'q')
         
         if 'q' not in string:
