@@ -5,10 +5,11 @@ I used the following links to help with creating the screen:
 - https://api.arcade.academy/en/latest/examples/gui_widgets.html#gui-widgets
 - https://api.arcade.academy/en/latest/examples/gui_ok_messagebox.html#gui-ok-messagebox
 '''
-# TODO #1: Refactor the method names to make this file easier to read and understand
 
 import arcade
 import arcade.gui
+import random_letter
+import random_hangman_word
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
@@ -19,6 +20,8 @@ class HangmanGUI(arcade.Window):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         self.manager = None
         self.v_box = None
+        self.letter = None
+        self.word = None
         
         # --- Required for all code that uses UI element,
         # a UIManager to handle the UI.
@@ -49,20 +52,19 @@ class HangmanGUI(arcade.Window):
         ui_flatbutton_quit = arcade.gui.UIFlatButton(text="Quit", width=200)
         self.v_box.add(ui_flatbutton_quit.with_space_around(bottom=20))
 
-        # Handle the clicks for the play game and quit buttons
+        # Handle the clicks for the instructions, play game and quit buttons
         @ui_flatbutton_instructions.event("on_click")
-        def on_click_flatbutton_instructions(event):
-            self.on_click_open(event)
+        def on_click_flatbutton_instructions(event) -> None:
+            self.on_click_instructions(event)
 
         @ui_flatbutton_play.event("on_click")
-        # TODO #2: Implement a screen where the user can select the level
-        # of difficulty
-        # TODO #3: Implement the Hangman game
-        def on_click_flatbutton_play(event):
+        # TODO: Implement the Hangman game
+        def on_click_flatbutton_play(event) -> None:
             print("Play Game button was pressed", event)
+            self.on_click_play_game(event)
         
         @ui_flatbutton_quit.event("on_click")
-        def on_click_flatbutton_quit(event):
+        def on_click_flatbutton_quit(event) -> SystemExit:
             arcade.exit()
 
         # Create a widget to hold the v_box widget, that will center the buttons
@@ -73,8 +75,7 @@ class HangmanGUI(arcade.Window):
                 child=self.v_box)
         )
 
-    def on_click_open(self, event):
-        self.clear()
+    def on_click_instructions(self, event):
         # The code in this function is run when we click the ok button.
         # The code below opens the message box and auto-dismisses it when done.
         message_box = arcade.gui.UIMessageBox(
@@ -90,19 +91,117 @@ class HangmanGUI(arcade.Window):
                 "If you make the correct guess before Hangman is drawn, you win! \n\n"
                 "Are you ready to play?"
             ),
-            callback=self.on_message_box_close,
+            callback=self.on_close_instructions,
             buttons=["Ok"]
         )
 
         self.manager.add(message_box)
 
-    def on_click_start(self, event):
-        print("Start:", event)
-
-    def on_message_box_close(self, button_text):
+    def on_close_instructions(self, button_text) -> None:
         print(f"User pressed {button_text}.")
 
-    def on_draw(self):
+    def on_click_play_game(self, event) -> None:
+        self.manager.clear()
+
+        # Create a vertical BoxGroup to align buttons
+        self.v_box_play = arcade.gui.UIBoxLayout()
+
+        # Create a text label
+        ui_text_label = arcade.gui.UITextArea(text="Pick your level",
+                                              width=295,
+                                              height=40,
+                                              font_size=20,
+                                              font_name="Kenney Future")
+        self.v_box_play.add(ui_text_label.with_space_around(bottom=5))
+
+        # Create the easy, medium and hard buttons
+        ui_flatbutton_easy = arcade.gui.UIFlatButton(text="Easy", width=200)
+        self.v_box_play.add(ui_flatbutton_easy.with_space_around(bottom=20))
+
+        ui_flatbutton_medium = arcade.gui.UIFlatButton(text="Medium", width=200)
+        self.v_box_play.add(ui_flatbutton_medium.with_space_around(bottom=20))
+
+        ui_flatbutton_hard = arcade.gui.UIFlatButton(text="Hard", width=200)
+        self.v_box_play.add(ui_flatbutton_hard.with_space_around(bottom=20))
+
+        # Handle the clicks for the instructions, play game and quit buttons
+        @ui_flatbutton_easy.event("on_click")
+        def on_click_flatbutton_easy(event):
+            self.on_click_play_easy(event)
+
+        @ui_flatbutton_medium.event("on_click")
+        def on_click_flatbutton_medium(event):
+            self.on_click_play_medium(event)
+        
+        @ui_flatbutton_hard.event("on_click")
+        def on_click_flatbutton_hard(event):
+            self.on_click_play_hard(event)
+
+        # Create a widget to hold the v_box widget, that will center the buttons
+        self.manager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="center_x",
+                anchor_y="center_y",
+                child=self.v_box_play)
+        )
+
+    def on_click_play_easy(self, event) -> None:
+        self.manager.clear()
+
+        self.letter = random_letter.RandomLetter().generateRandomLetter()
+        self.word = random_hangman_word.RandomHangmanWord().generateRandomWord(self.letter)
+        print("Word for easy level:", self.word)
+
+        # Create a vertical BoxGroup to align buttons
+        self.v_box_easy = arcade.gui.UIBoxLayout()
+
+        # Create a text label
+        ui_text_label = arcade.gui.UITextArea(text="Hangman: Easy",
+                                              width=580,
+                                              height=40,
+                                              font_size=20,
+                                              font_name="Kenney Future")
+        self.v_box_easy.add(ui_text_label.with_space_around(bottom=10))
+
+        # Create a text label
+        ui_text_label = arcade.gui.UITextArea(text="Guess the word below",
+                                              width=580,
+                                              height=40,
+                                              font_size=15,
+                                              font_name="Kenney Future")
+        self.v_box_easy.add(ui_text_label.with_space_around(bottom=10))
+
+        underscores = "_ " * len(self.word)
+        # Create a text label
+        ui_text_label = arcade.gui.UITextArea(text=underscores,
+                                              width=580,
+                                              height=40,
+                                              font_size=15,
+                                              font_name="Kenney Future")
+        self.v_box_easy.add(ui_text_label.with_space_around(bottom=10))
+
+        # Create a widget to hold the v_box widget, that will center the buttons
+        self.manager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="center_x",
+                anchor_y="center_y",
+                child=self.v_box_easy)
+        )
+
+    def on_click_play_medium(self, event) -> None:
+        # self.manager.clear()
+        self.letter = random_letter.RandomLetter().generateRandomLetter()
+        self.word = random_hangman_word.RandomHangmanWord("MEDIUM").generateRandomWord(self.letter)
+        # print("Word for medium level:", self.word)
+
+    def on_click_play_hard(self, event) -> None:
+        # self.manager.clear()
+        self.letter = random_letter.RandomLetter().generateRandomLetter()
+        self.word = random_hangman_word.RandomHangmanWord("HARD").generateRandomWord(self.letter)
+        # print("Word for hard level:", self.word)
+    
+    # Not too sure what this does, but it's needed to display the GUI
+    def on_draw(self) -> None:
         self.clear()
         self.manager.draw()
 
