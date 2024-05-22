@@ -10,6 +10,7 @@ import arcade
 import arcade.gui
 import random_letter
 import random_hangman_word
+import hangman
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
@@ -22,7 +23,8 @@ class HangmanGUI(arcade.Window):
         self.v_box = None
         self.letter = None
         self.word = None
-        self.guesses = 10 # Assuming there's 10 steps to drawing hangman
+        self.guesses = None
+        self.hangman = None
         
         # --- Required for all code that uses UI element,
         # a UIManager to handle the UI.
@@ -130,6 +132,8 @@ class HangmanGUI(arcade.Window):
         def on_click_flatbutton_easy(event):
             self.letter = random_letter.RandomLetter().generateRandomLetter()
             self.word = random_hangman_word.RandomHangmanWord().generateRandomWord(self.letter)
+            self.guesses = len(self.word) + 7
+            self.hangman = hangman.Hangman()
             print("Word for easy level:", self.word)
             self.on_click_play_easy(event, self.word)
 
@@ -137,6 +141,8 @@ class HangmanGUI(arcade.Window):
         def on_click_flatbutton_medium(event):
             self.letter = random_letter.RandomLetter().generateRandomLetter()
             self.word = random_hangman_word.RandomHangmanWord("MEDIUM").generateRandomWord(self.letter)
+            self.guesses = len(self.word) + 5
+            self.hangman = hangman.Hangman()
             print("Word for medium level:", self.word)
             self.on_click_play_medium(event, self.word)
         
@@ -144,6 +150,8 @@ class HangmanGUI(arcade.Window):
         def on_click_flatbutton_hard(event):
             self.letter = random_letter.RandomLetter().generateRandomLetter()
             self.word = random_hangman_word.RandomHangmanWord("HARD").generateRandomWord(self.letter)
+            self.guesses = len(self.word) + 3
+            self.hangman = hangman.Hangman()
             print("Word for hard level:", self.word)
             self.on_click_play_hard(event, self.word)
 
@@ -171,6 +179,14 @@ class HangmanGUI(arcade.Window):
         self.v_box_easy.add(ui_text_label.with_space_around(bottom=10))
 
         # Create a text label
+        ui_text_label = arcade.gui.UITextArea(text=f"You have {self.guesses} guesses remaining",
+                                              width=580,
+                                              height=40,
+                                              font_size=12,
+                                              font_name="Kenney Future")
+        self.v_box_easy.add(ui_text_label.with_space_around(bottom=10))
+
+        # Create a text label
         ui_text_label = arcade.gui.UITextArea(text="Guess the word below",
                                               width=580,
                                               height=40,
@@ -178,7 +194,6 @@ class HangmanGUI(arcade.Window):
                                               font_name="Kenney Future")
         self.v_box_easy.add(ui_text_label.with_space_around(bottom=10))
 
-        # Will be delegated to another class which returns the new underscore sequence
         if len(revealed_letters) == 0:
             underscores = "_ " * len(self.word)
         else:
@@ -191,6 +206,14 @@ class HangmanGUI(arcade.Window):
                                               font_size=15,
                                               font_name="Kenney Future")
         self.v_box_easy.add(ui_text_label.with_space_around(bottom=10))
+
+        # Create a text label
+        ui_text_label = arcade.gui.UITextArea(text=f"Incorrectly guessed letters: {self.hangman.getIncorrectGuesses()}",
+                                              width=580,
+                                              height=40,
+                                              font_size=12,
+                                              font_name="Kenney Future")
+        self.v_box_easy.add(ui_text_label.with_space_around(bottom=15))
 
         # Create a text label
         ui_text_label = arcade.gui.UITextArea(text="Type a letter below and press submit",
@@ -208,11 +231,43 @@ class HangmanGUI(arcade.Window):
         ui_flatbutton_submit = arcade.gui.UIFlatButton(text="Submit", width=200)
         self.v_box_easy.add(ui_flatbutton_submit.with_space_around(bottom=20))
 
+        if revealed_letters == word_to_guess:
+            message_box = arcade.gui.UIMessageBox(
+            width=400,
+            height=250,
+            message_text=(
+                "You have correctly guessed the word: \n\n"
+                f"{word_to_guess} \n\n"
+                f"With {self.guesses} guess(es) remaning! \n\n"
+                "Well done! :) \n\n"
+                "Would you like to play again?"
+            ),
+            callback=self.on_click_end_game,
+            buttons=["Yes", "No"]
+            )
+            self.manager.add(message_box)
+        elif self.guesses == 0:
+            message_box = arcade.gui.UIMessageBox(
+            width=260,
+            height=190,
+            message_text=(
+                "Unlucky! The word was: \n\n"
+                f"{word_to_guess} \n\n"
+                "You were unable to correctly guess the word this time :( \n\n"
+                "Would you like to play again?"
+            ),
+            callback=self.on_click_end_game,
+            buttons=["Yes", "No"]
+            )
+            self.manager.add(message_box)
+            
+
         # Handle the clicks for the instructions, play game and quit buttons
         @ui_flatbutton_submit.event("on_click")
         def on_click_flatbutton_easy(event):
-            # TODO
-            self.on_click_play_easy(event, word_to_guess, ui_input_text_label.text)
+            revealed_letters = self.hangman.revealCorrectLetters(word_to_guess, ui_input_text_label.text)
+            self.guesses -= 1
+            self.on_click_play_easy(event, word_to_guess, revealed_letters)
 
         # Create a widget to hold the v_box widget, that will center the buttons
         self.manager.add(
@@ -229,6 +284,10 @@ class HangmanGUI(arcade.Window):
     def on_click_play_hard(self, event, word_to_guess) -> None:
         # self.manager.clear()
         pass
+
+    def on_click_end_game(self, button_text) -> None:
+        if button_text == "No" or self.guesses == 0:
+            arcade.exit()
     
     # Not too sure what this does, but it's needed to display the GUI
     def on_draw(self) -> None:
