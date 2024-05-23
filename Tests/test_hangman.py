@@ -103,14 +103,14 @@ class TestHangman(unittest.TestCase):
     def test_hangman_raises_an_error_if_more_than_one_letter_guessed(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord().generateRandomWord(letter)
-        self.assertRaises(ValueError, Hangman().revealCorrectLetters(word, letter * 2))
+        self.assertRaises(ValueError("Expected one letter only."), Hangman().revealCorrectLetters(word, letter * 2))
 
     def test_hangman_raises_an_error_if_empty_string_guessed(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord().generateRandomWord(letter)
-        self.assertRaises(ValueError, Hangman().revealCorrectLetters(word, ""))
+        self.assertRaises(ValueError("An (empty) space is not a valid input. Expected one letter as input only."), Hangman().revealCorrectLetters(word, ""))
 
     def test_hangman_raises_an_error_if_empty_space_guessed(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord().generateRandomWord(letter)
-        self.assertRaises(ValueError, Hangman().revealCorrectLetters(word, " "))
+        self.assertRaises(ValueError("An (empty) space is not a valid input. Expected one letter as input only."), Hangman().revealCorrectLetters(word, " "))
