@@ -43,9 +43,9 @@ class Hangman:
         letter (str) - the letter the player thinks is in the word
         '''
         if len(letter) > 1:
-            raise AttributeError("Expected one letter only.")
+            raise ValueError("Expected one letter only.")
         elif letter == "" or letter == " ":
-            raise AttributeError("An (empty) space is not a valid input. Expected one letter as input only.")
+            raise ValueError("An (empty) space is not a valid input. Expected one letter as input only.")
 
     def revealCorrectLetters(self, word_to_guess: str, letter: str) -> str:
         '''
