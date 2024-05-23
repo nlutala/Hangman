@@ -99,3 +99,18 @@ class TestHangman(unittest.TestCase):
             assert '-' in string
         else:
             assert '-' not in string
+
+    def test_hangman_raises_an_error_if_more_than_one_letter_guessed(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord().generateRandomWord(letter)
+        self.assertRaises(ValueError, Hangman().revealCorrectLetters(word, letter * 2))
+
+    def test_hangman_raises_an_error_if_empty_string_guessed(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord().generateRandomWord(letter)
+        self.assertRaises(ValueError, Hangman().revealCorrectLetters(word, ""))
+
+    def test_hangman_raises_an_error_if_empty_space_guessed(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord().generateRandomWord(letter)
+        self.assertRaises(ValueError, Hangman().revealCorrectLetters(word, " "))
