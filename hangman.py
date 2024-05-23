@@ -17,7 +17,7 @@ class Hangman:
         self.correct_letters = set()
         self.incorrect_letters = set()
 
-    def getIncorrectGuesses(self):
+    def getIncorrectGuesses(self) -> str:
         '''
         Returns the list of letters that the user guessed incorrectly
         '''
@@ -34,6 +34,18 @@ class Hangman:
         '''
         indices = [i for i in range(0, len(word)) if word[i].lower() == letter.lower()]
         return indices
+    
+    def _checkInputIsLetter(self, letter: str) -> Exception:
+        '''
+        Raises an error if the letter inputted by the user is not one letter
+
+        Param:
+        letter (str) - the letter the player thinks is in the word
+        '''
+        if len(letter) > 1:
+            raise AttributeError("Expected one letter only.")
+        elif letter == "" or letter == " ":
+            raise AttributeError("An (empty) space is not a valid input. Expected one letter as input only.")
 
     def revealCorrectLetters(self, word_to_guess: str, letter: str) -> str:
         '''
@@ -44,6 +56,8 @@ class Hangman:
         word_to_guess (str) - the word the player needs to guess
         letter (str) - the letter the player thinks is in the word
         '''
+        self._checkInputIsLetter(letter)
+
         if letter.lower() in word_to_guess.lower():
             self.correct_letters.add(letter.lower())
         else:
