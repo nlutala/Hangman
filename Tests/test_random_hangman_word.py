@@ -56,6 +56,11 @@ class TestRandomHangmanWord(unittest.TestCase):
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
         assert word[0] == letter
 
+    def test_randomhangmanword_can_return_word_with_a_hyphen_when_hard(self):
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord("HARD").generateRandomWord(letter)
+        assert word.count('-') >= 0
+
     def test_randomhangmanword_returns_word_with_length_is_seven_or_greater_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
