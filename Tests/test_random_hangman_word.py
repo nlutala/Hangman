@@ -65,3 +65,13 @@ class TestRandomHangmanWord(unittest.TestCase):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
         assert len(word) >= 7
+
+    def test_randomhangmanword_raises_an_error_if_a_letter_is_not_passed_to_generateRandomWord(self):
+        with self.assertRaises(ValueError):
+            RandomHangmanWord().generateRandomWord("\n")
+
+        with self.assertRaises(ValueError):
+            RandomHangmanWord().generateRandomWord("sdhba")
+
+        with self.assertRaises(ValueError):
+            RandomHangmanWord().generateRandomWord("nlutala")
