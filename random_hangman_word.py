@@ -7,7 +7,10 @@ class RandomHangmanWord:
     def __init__(self, level="EASY") -> None:
         '''
         Initialise the RandomHangmanWord object
-        with a level (either "EASY", "MEDIUM" or "HARD")
+        with a level
+
+        Param:
+        level (str) - (either "EASY", "MEDIUM" or "HARD")
         '''
         self.level = level
         self.word_min_length = None
@@ -22,9 +25,12 @@ class RandomHangmanWord:
         else:
             self.word_min_length = 7
 
-    def generateRandomWord(self, random_letter) -> str:
+    def generateRandomWord(self, random_letter: str) -> str:
         '''
         Generate a random word starting with a random letter
+
+        Param:
+        random_letter (str)
         '''
         return RandomWord().word(
             starts_with=random_letter,
