@@ -44,7 +44,7 @@ class Hangman:
         '''
         if len(letter) > 1:
             raise ValueError("Expected one letter only.")
-        elif letter == "" or letter == " ":
+        elif letter == "" or letter == " " or letter == "\n":
             raise ValueError("An (empty) space is not a valid input. Expected one letter as input only.")
 
     def revealCorrectLetters(self, word_to_guess: str, letter: str) -> str:
