@@ -124,3 +124,38 @@ class TestHangman(unittest.TestCase):
         word = RandomHangmanWord().generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, " ")
+
+    def test_getIncorrectGuesses_returns_only_distinct_letters(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
+        hangman = Hangman()
+        hangman.revealCorrectLetters(word, "r")
+        hangman.revealCorrectLetters(word, "r")
+
+        if "r" not in word:
+            assert hangman.getIncorrectGuesses().count("r") == 1
+        else:
+            assert hangman.getIncorrectGuesses().count("r") == 0
+
+    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word(self) -> bool:
+        # Arbitrary word I chose myself
+        word1 = "programming"
+
+        # Random letter RandomHangmanWord("HARD") generates
+        letter = RandomLetter().generateRandomLetter()
+        word2 = RandomHangmanWord("HARD").generateRandomWord(letter)
+
+        hangman = Hangman()
+        assert hangman._getIndexesOfALetterInAWord(word1, "m") == [6, 7]
+        assert hangman._getIndexesOfALetterInAWord(word2, letter)[0] == 0
+
+    def test_revealCorrectLetters_returns_correct_word_if_it_stores_all_the_correct_letters(self) -> bool:
+        # Arbitrary word I chose myself
+        word = "programming"
+
+        hangman = Hangman()
+
+        for letter in word:
+            correct_letters = hangman.revealCorrectLetters(word, letter)
+
+        assert word == correct_letters
