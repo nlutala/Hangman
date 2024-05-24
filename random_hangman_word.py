@@ -31,9 +31,14 @@ class RandomHangmanWord:
 
         Param:
         random_letter (str)
+
+        Raises a ValueError if anything but a letter is passed as a parameter
         '''
-        return RandomWord().word(
-            starts_with=random_letter,
-            word_min_length=self.word_min_length,
-            regex=self.regex
-        )
+        if len(random_letter) > 1 or not random_letter.isalpha() or random_letter == "\n":
+            raise ValueError("Expected a letter of the alphabet")
+        else:
+            return RandomWord().word(
+                starts_with=random_letter,
+                word_min_length=self.word_min_length,
+                regex=self.regex
+            )
