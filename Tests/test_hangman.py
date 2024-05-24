@@ -137,6 +137,25 @@ class TestHangman(unittest.TestCase):
         else:
             assert hangman.getIncorrectGuesses().count("r") == 0
 
+        # More manual test
+        # Arbitrary word I chose myself
+        word = "programming"
+
+        hangman = Hangman()
+
+        hangman.revealCorrectLetters(word, 'b')
+        hangman.revealCorrectLetters(word, 'b')
+        hangman.revealCorrectLetters(word, 'h')
+        hangman.revealCorrectLetters(word, 'x')
+        hangman.revealCorrectLetters(word, 'y')
+        hangman.revealCorrectLetters(word, 'y')
+        hangman.revealCorrectLetters(word, 'y')
+
+        incorrect_guesses = hangman.getIncorrectGuesses().split(" ")
+
+        for letter in incorrect_guesses:
+            assert incorrect_guesses.count(letter) == 1
+
     def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word(self) -> bool:
         # Arbitrary word I chose myself
         word1 = "programming"
