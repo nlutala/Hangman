@@ -125,6 +125,12 @@ class TestHangman(unittest.TestCase):
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, " ")
 
+    def test_hangman_raises_an_error_if_newline_guessed(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord().generateRandomWord(letter)
+        with self.assertRaises(ValueError):
+            Hangman().revealCorrectLetters(word, "\n")
+
     def test_getIncorrectGuesses_returns_only_distinct_letters(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
