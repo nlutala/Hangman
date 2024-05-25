@@ -1,5 +1,8 @@
 '''
 Generates a random word starting with a random letter.
+
+Nathan Lutala
+Github: https://github.com/nlutala
 '''
 from wonderwords import RandomWord
 
