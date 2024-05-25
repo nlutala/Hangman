@@ -1,16 +1,9 @@
 '''
-Hangman class which helps reveal the correct placement of letters gradually
+Hangman class which helps reveal the correct placement of letters gradually using undescores (_)
+
+Nathan Lutala
+Github: https://github.com/nlutala
 '''
-
-# 1. User has a set number of guesses until hangman is drawn
-#    (For simplicity, the user can only guess letters and not the whole word)
-# 2. After each guess, reduce the amount of guesses the user has left by one
-# 3. For every right guess, reveal all the places in the word where the letter is
-# 4. For every wrong guess, reveal a piece of the hangman drawing
-# 5. The game ends when the user guesses the word or runs out of guesses
-
-# Extra features:
-# While playing the game, the user can choose to go back to the home screen and pick to play at a different level
 
 class Hangman:
     def __init__(self) -> None:
