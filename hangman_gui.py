@@ -4,6 +4,9 @@ The GUI for the Hangman Game using the Arcade library
 I used the following links to help with creating the screen:
 - https://api.arcade.academy/en/latest/examples/gui_widgets.html#gui-widgets
 - https://api.arcade.academy/en/latest/examples/gui_ok_messagebox.html#gui-ok-messagebox
+
+Nathan Lutala
+Github: https://github.com/nlutala
 '''
 
 import arcade
@@ -28,6 +31,9 @@ class HangmanGUI(arcade.Window):
         self.home_screen()
 
     def home_screen(self):
+        '''
+        Creates the starting screen for the Hangman game.
+        '''
         # --- Required for all code that uses UI element,
         # a UIManager to handle the UI.
         self.manager = arcade.gui.UIManager()
@@ -79,6 +85,9 @@ class HangmanGUI(arcade.Window):
         )
 
     def on_click_instructions(self, event):
+        '''
+        Creates a new screen to display the instructions for the game.
+        '''
         self.manager.clear()
 
         self.v_box = arcade.gui.UIBoxLayout()
@@ -115,13 +124,10 @@ class HangmanGUI(arcade.Window):
                 child=self.v_box)
         )
 
-    def on_close_instructions(self) -> None:
-        '''
-        Doesn't do anything, but it's needed to close the information pop-up
-        '''
-        pass
-
     def on_click_play_game(self, event) -> None:
+        '''
+        Displays a new screen with a selection of different levels (easy, medium and hard)
+        '''
         self.manager.clear()
 
         # Create a vertical BoxGroup to align buttons
@@ -152,7 +158,8 @@ class HangmanGUI(arcade.Window):
             self.word = random_hangman_word.RandomHangmanWord().generateRandomWord(self.letter)
             self.guesses = len(self.word) + 7
             self.hangman = hangman.Hangman()
-            print("Word for easy level:", self.word)
+            # Uncommment the print statement below to see the word in the console
+            # print("Word for easy level:", self.word)
             self.on_click_play_easy(event, self.word)
 
         @ui_flatbutton_medium.event("on_click")
@@ -161,7 +168,8 @@ class HangmanGUI(arcade.Window):
             self.word = random_hangman_word.RandomHangmanWord("MEDIUM").generateRandomWord(self.letter)
             self.guesses = len(self.word) + 5
             self.hangman = hangman.Hangman()
-            print("Word for medium level:", self.word)
+            # Uncommment the print statement below to see the word in the console
+            # print("Word for medium level:", self.word)
             self.on_click_play_medium(event, self.word)
         
         @ui_flatbutton_hard.event("on_click")
@@ -170,7 +178,8 @@ class HangmanGUI(arcade.Window):
             self.word = random_hangman_word.RandomHangmanWord("HARD").generateRandomWord(self.letter)
             self.guesses = len(self.word) + 3
             self.hangman = hangman.Hangman()
-            print("Word for hard level:", self.word)
+            # Uncommment the print statement below to see the word in the console
+            # print("Word for hard level:", self.word)
             self.on_click_play_hard(event, self.word)
 
         # Create a widget to hold the v_box widget, that will center the buttons
@@ -181,9 +190,14 @@ class HangmanGUI(arcade.Window):
                 child=self.v_box)
         )
 
-    def on_click_play_easy(self, event, word_to_guess, revealed_letters="") -> None:
+    def on_click_play_easy(self, event, word_to_guess: str, revealed_letters="") -> None:
+        '''
+        The Hangman game at the easy level
+        Here a player can play the Hangman game on easy mode
+        '''
         self.manager.clear()
-        print(word_to_guess)
+        # Uncommment the print statement below to see the word in the console
+        # print(word_to_guess)
 
         # Create a vertical BoxGroup to align buttons
         self.v_box = arcade.gui.UIBoxLayout()
@@ -267,9 +281,14 @@ class HangmanGUI(arcade.Window):
                 child=self.v_box)
         )
 
-    def on_click_play_medium(self, event, word_to_guess, revealed_letters="") -> None:
+    def on_click_play_medium(self, event, word_to_guess: str, revealed_letters="") -> None:
+        '''
+        The Hangman game at the medium level
+        Here a player can play the Hangman game on medium mode
+        '''
         self.manager.clear()
-        print(word_to_guess)
+        # Uncommment the print statement below to see the word in the console
+        # print(word_to_guess)
 
         # Create a vertical BoxGroup to align buttons
         self.v_box = arcade.gui.UIBoxLayout()
@@ -353,9 +372,14 @@ class HangmanGUI(arcade.Window):
                 child=self.v_box)
         )
 
-    def on_click_play_hard(self, event, word_to_guess, revealed_letters="") -> None:
+    def on_click_play_hard(self, event, word_to_guess: str, revealed_letters="") -> None:
+        '''
+        The Hangman game at the hard level
+        Here a player can play the Hangman game on hard mode
+        '''
         self.manager.clear()
-        print(word_to_guess)
+        # Uncommment the print statement below to see the word in the console
+        # print(word_to_guess)
 
         # Create a vertical BoxGroup to align buttons
         self.v_box = arcade.gui.UIBoxLayout()
@@ -440,6 +464,9 @@ class HangmanGUI(arcade.Window):
         )
 
     def player_won_game(self, word_to_guess: str, event) -> None:
+        '''
+        Defines the creation of the screen shown if the player wins the game (at any level)
+        '''
         self.manager.clear()
 
         # Create a vertical BoxGroup to align buttons
@@ -475,6 +502,9 @@ class HangmanGUI(arcade.Window):
             arcade.exit()
 
     def player_lost_game(self, word_to_guess: str, event) -> None:
+        '''
+        Defines the creation of the screen shown if the player loses the game (at any level)
+        '''
         self.manager.clear()
 
         # Create a vertical BoxGroup to align buttons
@@ -506,10 +536,6 @@ class HangmanGUI(arcade.Window):
         @ui_flatbutton_quit.event("on_click")
         def on_click_flatbutton_quit(event):
             arcade.exit()      
-
-    def on_click_end_game(self, event):
-        '''Does nothing but it's needed to close the message widget'''
-        pass
     
     # Not too sure what this does, but it's needed to display the GUI
     def on_draw(self) -> None:
