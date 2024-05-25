@@ -1,5 +1,8 @@
 '''
 Generates a random letter from a-z
+
+Nathan Lutala
+Github: https://github.com/nlutala
 '''
 from random import Random
 
@@ -13,3 +16,4 @@ class RandomLetter:
         '''
         index = Random().randint(0, len(self.letters)-1)
         return self.letters[index]
+    
