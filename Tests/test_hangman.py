@@ -17,7 +17,7 @@ class TestHangman(unittest.TestCase):
         if 'z' not in string:
             assert string == '_' * len(word)
         else:
-            assert 'z' in string
+            assert 'z' in string and "_" in string
 
     def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_easy(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
@@ -47,7 +47,7 @@ class TestHangman(unittest.TestCase):
         if 'x' not in string:
             assert string == '_' * len(word)
         else:
-            assert 'x' in string
+            assert 'x' in string and "_" in string
 
     def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_medium(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
@@ -84,7 +84,7 @@ class TestHangman(unittest.TestCase):
                     assertion_string.append(letter)
             assert string == "".join(assertion_string)
         else:
-            assert 'q' in string
+            assert 'q' in string and "_" in string
 
     def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_hard(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
@@ -103,13 +103,25 @@ class TestHangman(unittest.TestCase):
         string = Hangman().revealCorrectLetters(word, 'd')
         
         if '-' in word:
-            assert '-' in string
+            assert '-' in string and "_" in string
         else:
-            assert '-' not in string
+            assert '-' not in string and "_" in string
 
-    def test_hangman_raises_an_error_if_more_than_one_letter_guessed(self) -> bool:
+    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_easy(self) -> bool:
         letter = RandomLetter().generateRandomLetter()
-        word = RandomHangmanWord().generateRandomWord(letter)
+        word = RandomHangmanWord("EASY").generateRandomWord(letter)
+        with self.assertRaises(ValueError):
+            Hangman().revealCorrectLetters(word, letter * 2)
+
+    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_medium(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
+        with self.assertRaises(ValueError):
+            Hangman().revealCorrectLetters(word, letter * 2)
+
+    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_hard(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord("HARD").generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, letter * 2)
 
@@ -162,7 +174,31 @@ class TestHangman(unittest.TestCase):
         for letter in incorrect_guesses:
             assert incorrect_guesses.count(letter) == 1
 
-    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word(self) -> bool:
+    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_easy(self) -> bool:
+        # Arbitrary word I chose myself
+        word1 = "programming"
+
+        # Random letter RandomHangmanWord("HARD") generates
+        letter = RandomLetter().generateRandomLetter()
+        word2 = RandomHangmanWord("EASY").generateRandomWord(letter)
+
+        hangman = Hangman()
+        assert hangman._getIndexesOfALetterInAWord(word1, "m") == [6, 7]
+        assert hangman._getIndexesOfALetterInAWord(word2, letter)[0] == 0
+
+    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_medium(self) -> bool:
+        # Arbitrary word I chose myself
+        word1 = "programming"
+
+        # Random letter RandomHangmanWord("HARD") generates
+        letter = RandomLetter().generateRandomLetter()
+        word2 = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
+
+        hangman = Hangman()
+        assert hangman._getIndexesOfALetterInAWord(word1, "m") == [6, 7]
+        assert hangman._getIndexesOfALetterInAWord(word2, letter)[0] == 0
+
+    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_hard(self) -> bool:
         # Arbitrary word I chose myself
         word1 = "programming"
 
@@ -184,3 +220,13 @@ class TestHangman(unittest.TestCase):
             correct_letters = hangman.revealCorrectLetters(word, letter)
 
         assert word == correct_letters
+
+    def test__checkInputIsLetter_returns_none_when_a_letter_is_correctly_inputted(self) -> bool:
+        letter = RandomLetter().generateRandomLetter()
+        assert Hangman()._checkInputIsLetter(letter) == None
+
+        letter = RandomLetter().generateRandomLetter()
+        assert Hangman()._checkInputIsLetter(letter) == None
+
+        letter = RandomLetter().generateRandomLetter()
+        assert Hangman()._checkInputIsLetter(letter) == None
