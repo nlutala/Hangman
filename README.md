@@ -12,7 +12,7 @@ This program was created to help familiarise me with object-oriented programming
 * Open https://github.com/nlutala/Hangman/ in a new tab.
 * Press the green "<> Code" button and press "Download ZIP"
 * Once downloaded, extract all files to a new folder
-* Open your preferred terminal (command prompt, windows powershell etc.) in the directory where the requirements.txt file is located and write: pip install -r requirements.txt
+* Open your preferred terminal (command prompt, windows powershell etc.) in the directory where the requirements.txt file is located and write: ``` pip install -r requirements.txt ```
 * Now you should have all the required libraries to run the project
 
 ### Executing the program
