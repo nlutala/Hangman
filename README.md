@@ -16,7 +16,7 @@ This program was created to help familiarise me with object-oriented programming
 * Now you should have all the required libraries to run the project
 
 ### Executing the program
-* To run the game, write the following command in the terminal: python hangman_gui.py
+* To run the game, write the following command in the terminal: ``` python hangman_gui.py ```
 
 ### Author
 Nathan Lutala, nlutala
