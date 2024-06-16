@@ -22,7 +22,8 @@ This program was created to help familiarise me with object-oriented programming
 Nathan Lutala, nlutala
 
 ## Version History
-* 0.1 - First release
+* 0.1 - First release (https://github.com/nlutala/Hangman/tree/a8419d41637a93ece0a5cf64dad042841765f730)
+* 0.1 - Current version
 
 ## Acknowledgements
 Inspiration for writing this readme file

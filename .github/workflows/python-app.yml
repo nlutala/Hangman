@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "guess-whole-word" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "guess-whole-word" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
