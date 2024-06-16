@@ -7,7 +7,7 @@ from random_hangman_word import RandomHangmanWord
 from random_letter import RandomLetter
 
 class TestHangman(unittest.TestCase):
-    def test_hangman_returns_a_string_with_underscores_if_a_letter_is_not_in_the_word_when_easy(self) -> bool:
+    def test_hangman_returns_a_string_with_underscores_if_a_letter_is_not_in_the_word_when_easy(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("EASY").generateRandomWord(letter)
 
@@ -19,7 +19,7 @@ class TestHangman(unittest.TestCase):
         else:
             assert 'z' in string and "_" in string
 
-    def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_easy(self) -> bool:
+    def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_easy(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("EASY").generateRandomWord(letter)
 
@@ -28,7 +28,7 @@ class TestHangman(unittest.TestCase):
         
         assert len(string) == len(word)
 
-    def test_hangman_returns_a_string_without_hyphens_if_the_word_is_easy(self) -> bool:
+    def test_hangman_returns_a_string_without_hyphens_if_the_word_is_easy(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("EASY").generateRandomWord(letter)
 
@@ -37,7 +37,7 @@ class TestHangman(unittest.TestCase):
         
         assert '-' not in string
 
-    def test_hangman_returns_a_string_with_underscores_if_a_letter_is_not_in_the_word_when_medium(self) -> bool:
+    def test_hangman_returns_a_string_with_underscores_if_a_letter_is_not_in_the_word_when_medium(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
 
@@ -49,7 +49,7 @@ class TestHangman(unittest.TestCase):
         else:
             assert 'x' in string and "_" in string
 
-    def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_medium(self) -> bool:
+    def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_medium(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
 
@@ -58,7 +58,7 @@ class TestHangman(unittest.TestCase):
         
         assert len(string) == len(word)
 
-    def test_hangman_returns_a_string_without_hyphens_if_the_word_is_medium(self) -> bool:
+    def test_hangman_returns_a_string_without_hyphens_if_the_word_is_medium(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
 
@@ -67,7 +67,7 @@ class TestHangman(unittest.TestCase):
         
         assert '-' not in string
 
-    def test_hangman_returns_a_string_with_underscores_if_a_letter_is_not_in_the_word_when_hard(self) -> bool:
+    def test_hangman_returns_a_string_with_underscores_if_a_letter_is_not_in_the_word_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
 
@@ -86,7 +86,7 @@ class TestHangman(unittest.TestCase):
         else:
             assert 'q' in string and "_" in string
 
-    def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_hard(self) -> bool:
+    def test_hangman_returns_a_string_with_the_same_length_as_the_word_to_guess_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
 
@@ -95,7 +95,7 @@ class TestHangman(unittest.TestCase):
         
         assert len(string) == len(word)
 
-    def test_hangman_returns_a_string_with_hyphens_if_the_word_is_hard(self) -> bool:
+    def test_hangman_returns_a_string_with_hyphens_if_the_word_is_hard(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
 
@@ -107,43 +107,46 @@ class TestHangman(unittest.TestCase):
         else:
             assert '-' not in string and "_" in string
 
-    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_easy(self) -> bool:
+    '''
+    The following tests are now void as these will fail
+    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_easy(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("EASY").generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, letter * 2)
 
-    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_medium(self) -> bool:
+    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_medium(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, letter * 2)
 
-    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_hard(self) -> bool:
+    def test_hangman_raises_an_error_if_more_than_one_letter_guessed_when_hard(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("HARD").generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, letter * 2)
+    '''
 
-    def test_hangman_raises_an_error_if_empty_string_guessed(self) -> bool:
+    def test_hangman_raises_an_error_if_empty_string_guessed(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord().generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, "")
 
-    def test_hangman_raises_an_error_if_empty_space_guessed(self) -> bool:
+    def test_hangman_raises_an_error_if_empty_space_guessed(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord().generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, " ")
 
-    def test_hangman_raises_an_error_if_newline_guessed(self) -> bool:
+    def test_hangman_raises_an_error_if_newline_guessed(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord().generateRandomWord(letter)
         with self.assertRaises(ValueError):
             Hangman().revealCorrectLetters(word, "\n")
 
-    def test_getIncorrectGuesses_returns_only_distinct_letters(self) -> bool:
+    def test_getIncorrectGuesses_returns_only_distinct_letters(self):
         letter = RandomLetter().generateRandomLetter()
         word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
         hangman = Hangman()
@@ -174,7 +177,7 @@ class TestHangman(unittest.TestCase):
         for letter in incorrect_guesses:
             assert incorrect_guesses.count(letter) == 1
 
-    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_easy(self) -> bool:
+    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_easy(self):
         # Arbitrary word I chose myself
         word1 = "programming"
 
@@ -186,7 +189,7 @@ class TestHangman(unittest.TestCase):
         assert hangman._getIndexesOfALetterInAWord(word1, "m") == [6, 7]
         assert hangman._getIndexesOfALetterInAWord(word2, letter)[0] == 0
 
-    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_medium(self) -> bool:
+    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_medium(self):
         # Arbitrary word I chose myself
         word1 = "programming"
 
@@ -198,7 +201,7 @@ class TestHangman(unittest.TestCase):
         assert hangman._getIndexesOfALetterInAWord(word1, "m") == [6, 7]
         assert hangman._getIndexesOfALetterInAWord(word2, letter)[0] == 0
 
-    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_hard(self) -> bool:
+    def test___getIndexesOfALetterInAWord_returns_list_of_correct_occurences_of_a_letter_in_a_word_when_hard(self):
         # Arbitrary word I chose myself
         word1 = "programming"
 
@@ -210,7 +213,7 @@ class TestHangman(unittest.TestCase):
         assert hangman._getIndexesOfALetterInAWord(word1, "m") == [6, 7]
         assert hangman._getIndexesOfALetterInAWord(word2, letter)[0] == 0
 
-    def test_revealCorrectLetters_returns_correct_word_if_it_stores_all_the_correct_letters(self) -> bool:
+    def test_revealCorrectLetters_returns_correct_word_if_it_stores_all_the_correct_letters(self):
         # Arbitrary word I chose myself
         word = "programming"
 
@@ -221,7 +224,7 @@ class TestHangman(unittest.TestCase):
 
         assert word == correct_letters
 
-    def test__checkInputIsLetter_returns_none_when_a_letter_is_correctly_inputted(self) -> bool:
+    def test__checkInputIsLetter_returns_none_when_a_letter_is_correctly_inputted(self):
         letter = RandomLetter().generateRandomLetter()
         assert Hangman()._checkInputIsLetter(letter) == None
 
@@ -230,3 +233,16 @@ class TestHangman(unittest.TestCase):
 
         letter = RandomLetter().generateRandomLetter()
         assert Hangman()._checkInputIsLetter(letter) == None
+
+    def test_revealCorrectLetters_returns_word_to_guess_if_user_inputs_word(self):
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord("EASY").generateRandomWord(letter)
+        assert Hangman().revealCorrectLetters(word, word) == word
+
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord("MEDIUM").generateRandomWord(letter)
+        assert Hangman().revealCorrectLetters(word, word) == word
+
+        letter = RandomLetter().generateRandomLetter()
+        word = RandomHangmanWord("HARD").generateRandomWord(letter)
+        assert Hangman().revealCorrectLetters(word, word) == word

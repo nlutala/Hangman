@@ -35,9 +35,7 @@ class Hangman:
         Param:
         letter (str) - the letter the player thinks is in the word
         '''
-        if len(letter) > 1:
-            raise ValueError("Expected one letter only.")
-        elif letter == "" or letter == " " or letter == "\n":
+        if letter == "" or letter == " " or letter == "\n":
             raise ValueError("An (empty) space is not a valid input. Expected one letter as input only.")
 
     def revealCorrectLetters(self, word_to_guess: str, letter: str) -> str:
@@ -47,14 +45,22 @@ class Hangman:
 
         Params:
         word_to_guess (str) - the word the player needs to guess
-        letter (str) - the letter the player thinks is in the word
+        letter (str) - the letter the player thinks is in the word (or a whole word)
         '''
         self._checkInputIsLetter(letter)
 
-        if letter.lower() in word_to_guess.lower():
-            self.correct_letters.add(letter.lower())
+        if len(letter) != 1:
+            if letter == word_to_guess:
+                correct_letters = list(set(list(letter)))
+                for l in correct_letters:
+                    self.correct_letters.add(l.lower())
+            else:
+                self.incorrect_letters.add(letter.lower())
         else:
-            self.incorrect_letters.add(letter.lower())
+            if letter.lower() in word_to_guess.lower():
+                self.correct_letters.add(letter.lower())
+            else:
+                self.incorrect_letters.add(letter.lower())
 
         # Just because hard words can have hyphens in them
         if '-' in word_to_guess:
