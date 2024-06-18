@@ -92,7 +92,7 @@ class HangmanGUI(arcade.Window):
 
         self.v_box = arcade.gui.UIBoxLayout()
 
-        ui_text_label = arcade.gui.UITextArea(text="You need to guess the letters in a word that is randonly "
+        ui_text_label = arcade.gui.UITextArea(text="You need to guess the letters in a word that is randomly "
                                                     "generated. \n\n"
                                                     "After clicking the 'Play Game' button you will have the "
                                                     "option to "
